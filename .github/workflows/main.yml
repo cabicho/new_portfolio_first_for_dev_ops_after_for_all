@@ -55,6 +55,16 @@ jobs:
       - name: Debug Secret
         run: echo "${{ secrets.K8S_CONFIG }}"
 
+      - name: Debug Secret
+        run: echo "${{string(secrets.K8S_CONFIG).length}}"
+
+      - name: Debug Secret Contents
+        run: |
+          echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG && string(secrets.K8S_CONFIG).length || 0 }}"
+          echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
+          echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+      
+
       - name: Efectuando o Deploy no ambiente de teste Kubernetes #Kubernetes Set Context
         uses: Azure/k8s-set-context@v2
       
