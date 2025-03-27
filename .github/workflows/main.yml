@@ -6,6 +6,7 @@ name: CI-CD
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
+    #git add  .github/workflows/main.yml && git commit -m " try solve Error: Error: Input required and not supplied: kubeconfig update value of K8S_KUBECONFIG " && git push new_portfolio_first_for_dev_ops_after_for_all_remote for_new_portfolio_first_for_dev_ops_after_for_all_branch
     branches: ["for_new_portfolio_first_for_dev_ops_after_for_all_branch"] #branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
