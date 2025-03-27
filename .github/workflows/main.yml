@@ -56,7 +56,7 @@ jobs:
         run: echo "${{ secrets.K8S_CONFIG }}"
 
       - name: Debug Secret
-        run: echo "${{string(secrets.K8S_CONFIG).length}}"
+        run: echo "${{ string(secrets.K8S_CONFIG).length }}"
 
       - name: Debug Secret Contents
         run: |
