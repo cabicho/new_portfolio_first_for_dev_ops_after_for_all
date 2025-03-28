@@ -101,7 +101,8 @@ jobs:
          echo "K8S_KUBECONFIG  (start): $(echo "${{ secrets.K8S_KUBECONFIG  }}" | head -c 10)"
          echo "K8S_KUBECONFIG  (end):   $(echo "${{ secrets.K8S_KUBECONFIG  }}" | tail -c 10)"
          echo "Setting KUBECONFIG..."
-         echo "KUBECONFIG=${{ secrets.K8S_KUBECONFIG  }}" >> $GITHUB_ENV
+         echo "KUBECONFIG=${{ secrets.K8S_KUBECONFIG  }}" 
+         #>> $GITHUB_ENV
 
       
       
