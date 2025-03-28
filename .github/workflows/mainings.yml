@@ -62,7 +62,42 @@ jobs:
           # Add commands to install the Linode CLI on the runner
           # Example (you might need to adapt this):
           # curl -s https://raw.githubusercontent.com/linode/cli/main/scripts/install | bash
+      - name: Get kubeconfig
+        run: |
+            # Authenticate the Linode CLI using the environment variable
+            export LINODE_TOKEN="${{ secrets.LINODE_API_TOKEN }}"
+        
+            # Get the kubeconfig, using the environment variable
+            KUBECONFIG_RAW=$(linode-cli lke kubeconfig-view *** --text)
+        
+            # Check for errors
+            if [ $? -ne 0 ]; then
+              echo "::error::Failed to get LKE kubeconfig"
+              exit 1
+            fi
+        
+            # Echo the output
+            echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
+          shell: /usr/bin/bash -e {0}
           
+      - name: Get kubeconfig
+        run: |
+            # Authenticate the Linode CLI using the environment variable
+            export LINODE_TOKEN="${{ secrets.LINODE_API_TOKEN }}"
+        
+            # Get the kubeconfig, using the environment variable
+            KUBECONFIG_RAW=$(linode-cli lke kubeconfig-view *** --text)
+        
+            # Check for errors
+            if [ $? -ne 0 ]; then
+              echo "::error::Failed to get LKE kubeconfig"
+              exit 1
+            fi
+        
+            # Echo the output
+            echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
+          shell: /usr/bin/bash -e {0}
+
       - name: Configure Linode CLI
         run: |
           # Set the Linode API token as an environment variable
