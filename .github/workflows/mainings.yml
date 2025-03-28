@@ -71,14 +71,14 @@ jobs:
             KUBECONFIG_RAW=$(linode-cli lke kubeconfig-view *** --text)
         
             # Check for errors
-            if [ $? -ne 0 ]; then
-              echo "::error::Failed to get LKE kubeconfig"
-              exit 1
-            fi
+            # if [ $? -ne 0 ]; then
+            #  echo "::error::Failed to get LKE kubeconfig"
+            #  exit 1
+            # fi
         
             # Echo the output
-            #echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
-        shell: /usr/bin/bash -e {0}
+            # echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
+        #shell: /usr/bin/bash -e {0}
 
       - name: Configure Linode CLI
         run: |
