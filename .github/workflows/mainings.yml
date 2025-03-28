@@ -64,11 +64,12 @@ jobs:
           # curl -s https://raw.githubusercontent.com/linode/cli/main/scripts/install | bash
       - name: Get kubeconfig
         run: |
+            # coment because EOFError: EOF when reading a line
             # Authenticate the Linode CLI using the environment variable
-            export LINODE_TOKEN="${{ secrets.LINODE_API_TOKEN }}"
+            # export LINODE_TOKEN="${{ secrets.LINODE_API_TOKEN }}"
         
             # Get the kubeconfig, using the environment variable
-            KUBECONFIG_RAW=$(linode-cli lke kubeconfig-view *** --text)
+            # KUBECONFIG_RAW=$(linode-cli lke kubeconfig-view *** --text)
         
             # Check for errors
             # if [ $? -ne 0 ]; then
