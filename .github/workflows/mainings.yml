@@ -78,7 +78,7 @@ jobs:
         
             # Echo the output
             echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
-          shell: /usr/bin/bash -e {0}
+        shell: /usr/bin/bash -e {0}
 
       - name: Get kubeconfig
         run: |
@@ -96,7 +96,7 @@ jobs:
         
             # Echo the output
             echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
-          shell: /usr/bin/bash -e {0}
+        shell: /usr/bin/bash -e {0}
 
       - name: Configure Linode CLI
         run: |
@@ -161,4 +161,3 @@ jobs:
           # Password or personal access token used to log against the Docker registry
           manifests: |
             k8s/deployment.yaml
-      

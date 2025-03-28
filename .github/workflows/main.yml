@@ -70,7 +70,8 @@ jobs:
          echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
          echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
          echo "Setting KUBECONFIG..."
-         echo "KUBECONFIG=${{ secrets.K8S_CONFIG }}" >> $GITHUB_ENV
+         # Error: Process completed with exit code 127.
+         # echo "KUBECONFIG=${{ secrets.K8S_CONFIG }}" >> $GITHUB_ENV
          - name: Install Linode CLI
          run: |
            # Update package lists
