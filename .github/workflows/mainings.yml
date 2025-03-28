@@ -72,25 +72,11 @@ jobs:
           # linode-cli configure --token "$LINODE_API_TOKEN" #<-- DON'T DO THIS.  The 'configure' command is interactive.
           echo "LINODE_TOKEN is set"
 
-      - name: Get LKE Kubeconfig
-        id: get_kubeconfig
-        run: |
-          # Get the kubeconfig, using the environment variable
-          KUBECONFIG_RAW=$(linode-cli lke kubeconfig-view ${{ secrets.LINODE_CLUSTER_ID }} --text)
-
-          # Check for errors
-          if [ $? -ne 0 ]; then
-            echo "::error::Failed to get LKE kubeconfig"
-            exit 1
-          fi
-          
-          # Echo the output
-          echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
-      #Error: Error: Input required and not supplied: kubeconfig
+      
       - name: Set Kubernetes Context
         uses: Azure/k8s-set-context@v2 #  You might be able to use a Kubernetes action.
         with:
-          kubeconfig: ${{ steps.get_kubeconfig.outputs.KUBECONFIG }}
+          kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
     #steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # taking the code to the runs-on(ubuntu-latest)
