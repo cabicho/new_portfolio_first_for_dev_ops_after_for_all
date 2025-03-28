@@ -72,7 +72,7 @@ jobs:
          # coment because error 
          echo "Setting KUBECONFIG..."
          # coment because Error: Invalid format '***' Error: Unable to process file command 'env' successfully. # Error: Process completed with exit code 127.
-         # echo "KUBECONFIG=${secrets.K8S_KUBECONFIG  }}" >> $GITHUB_ENV
+         # echo KUBECONFIG=secrets.K8S_KUBECONFIG  $GITHUB_ENV
 
          - name: Install Linode CLI
          run: |
