@@ -53,25 +53,25 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Debug Secret
-        run: echo " ${{ secrets.K8S_CONFIG }}"
+        run: echo " ${{ secrets.K8S_KUBECONFIG  }}"
 
       - name: Debug Secret
-        run: echo "${{ secrets.K8S_CONFIG }}" #.length
+        run: echo "${{ secrets.K8S_KUBECONFIG  }}" #.length
 
-      ##    echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG  }}" 
+      ##    echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_KUBECONFIG   }}" 
       - name: Debug Secret Contents
-        run: | #echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG && secrets.K8S_CONFIG || 0 }}" #.length #Error: Process completed with exit code 2.
-         echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
-         echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+        run: | #echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_KUBECONFIG  && secrets.K8S_KUBECONFIG  || 0 }}" #.length #Error: Process completed with exit code 2.
+         echo "K8S_KUBECONFIG  (start): $(echo "${{ secrets.K8S_KUBECONFIG  }}" | head -c 10)"
+         echo "K8S_KUBECONFIG  (end):   $(echo "${{ secrets.K8S_KUBECONFIG  }}" | tail -c 10)"
       
       - name: Debug Secret and Set KUBECONFIG
         run: | # (Line: 68, Col: 14): Unrecognized function: 'string'. Located at position 23 within expression: secrets.K
-         echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG  || 0 }}"
-         echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
-         echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+         echo "K8S_KUBECONFIG  (length): ${{ secrets.K8S_KUBECONFIG   || 0 }}"
+         echo "K8S_KUBECONFIG  (start): $(echo "${{ secrets.K8S_KUBECONFIG  }}" | head -c 10)"
+         echo "K8S_KUBECONFIG  (end):   $(echo "${{ secrets.K8S_KUBECONFIG  }}" | tail -c 10)"
          echo "Setting KUBECONFIG..."
          # Error: Process completed with exit code 127.
-         # echo "KUBECONFIG=${{ secrets.K8S_CONFIG }}" >> $GITHUB_ENV
+         echo "KUBECONFIG=${{ secrets.K8S_KUBECONFIG  }}" >> $GITHUB_ENV
          - name: Install Linode CLI
          run: |
            # Update package lists
@@ -108,10 +108,10 @@ jobs:
       #Error: Unable to process command '::set-env name=KUBECONFIG::' successfully.
       - name: Debug Secret and Set KUBECONFIG
         run: | #echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG && string(secrets.K8S_CONFIG).length || 0 }}" 
-         echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
-         echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+         echo "K8S_KUBECONFIG  (start): $(echo "${{ secrets.K8S_KUBECONFIG  }}" | head -c 10)"
+         echo "K8S_KUBECONFIG  (end):   $(echo "${{ secrets.K8S_KUBECONFIG  }}" | tail -c 10)"
          echo "Setting KUBECONFIG..."
-         #echo "::set-env name=KUBECONFIG::${{ secrets.K8S_CONFIG }}"
+         echo "::set-env name=KUBECONFIG::${{ secrets.K8S_KUBECONFIG  }}"
       
       
       #Error: Error: Input required and not supplied: kubeconfig
