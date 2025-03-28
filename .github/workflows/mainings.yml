@@ -77,7 +77,7 @@ jobs:
             fi
         
             # Echo the output
-            echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
+            # echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
         shell: /usr/bin/bash -e {0}
 
       - name: Get kubeconfig
