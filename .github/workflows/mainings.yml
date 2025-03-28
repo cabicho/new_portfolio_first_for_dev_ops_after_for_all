@@ -58,10 +58,10 @@ jobs:
 
           # Install the Linode CLI using pip
           pip3 install linode-cli
-          
+
           # Add commands to install the Linode CLI on the runner
           # Example (you might need to adapt this):
-          curl -s https://raw.githubusercontent.com/linode/cli/main/scripts/install | bash
+          # curl -s https://raw.githubusercontent.com/linode/cli/main/scripts/install | bash
           
       - name: Configure Linode CLI
         run: |
@@ -98,8 +98,8 @@ jobs:
       - name: Debug Secret
         run: echo " ${{ secrets.K8S_CONFIG }}"
 
-      - name: Debug Secret
-        run: echo "${{ secrets.K8S_CONFIG }}" #.length
+      #- name: Debug Secret
+      #  run: echo "${{ secrets.K8S_CONFIG }}" #.length
 
       ##    echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG  }}" 
       - name: Debug Secret Contents
