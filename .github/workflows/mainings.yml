@@ -163,7 +163,7 @@ jobs:
       ##- name: Efectuando o Deploy no ambiente de teste Kubernetes #Kubernetes Set Context
       ##  uses: Azure/k8s-set-context@v2
         #with:
-        #kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        #kubeconfig: {{ secrets.KUBE_CONFIG }}
 
       
         
@@ -174,8 +174,8 @@ jobs:
         # method: kubeconfig  # default is kubeconfig
           # Contents of kubeconfig file
          #K8S_KUBECONFIG
-         #kubeconfig: ${{ secrets.K8S_CONFIG }} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
-         ##kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
+         #kubeconfig: {{ secrets.K8S_CONFIG }} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
+         ##kubeconfig: {{ secrets.K8S_KUBECONFIG }}
       
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v3.1
