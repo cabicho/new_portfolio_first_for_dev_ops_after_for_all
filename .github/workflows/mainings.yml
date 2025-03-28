@@ -79,7 +79,7 @@ jobs:
             # Echo the output
             echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
           shell: /usr/bin/bash -e {0}
-          
+
       - name: Get kubeconfig
         run: |
             # Authenticate the Linode CLI using the environment variable
@@ -120,7 +120,7 @@ jobs:
           
           # Echo the output
           echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
-
+      #Error: Error: Input required and not supplied: kubeconfig
       - name: Set Kubernetes Context
         uses: Azure/k8s-set-context@v2 #  You might be able to use a Kubernetes action.
         with:
@@ -173,7 +173,9 @@ jobs:
           # Acceptable values: kubeconfig or service-account or service-principal
         # method: kubeconfig  # default is kubeconfig
           # Contents of kubeconfig file
-         kubeconfig: ${{ secrets.K8S_CONFIG }} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
+         #K8S_KUBECONFIG
+         #kubeconfig: ${{ secrets.K8S_CONFIG }} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
+         kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
       
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v3.1
