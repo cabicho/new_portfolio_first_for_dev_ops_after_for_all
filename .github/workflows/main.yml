@@ -56,11 +56,11 @@ jobs:
         run: echo "${{ secrets.K8S_CONFIG }}"
 
       - name: Debug Secret
-        run: echo "${{ secrets.K8S_CONFIG.length }}"
+        run: echo "${{ secrets.K8S_CONFIG }}" #.length
 
       - name: Debug Secret Contents
         run: |
-          echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG && secrets.K8S_CONFIG.length || 0 }}"
+          echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG && secrets.K8S_CONFIG || 0 }}" #.length
           echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
           echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
       
