@@ -1,0 +1,143 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-CD
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    #git add  .github/workflows/main.yml && git commit -m " try solve Error: Error: Input required and not supplied: kubeconfig update value of K8S_KUBECONFIG " && git push new_portfolio_first_for_dev_ops_after_for_all_remote for_new_portfolio_first_for_dev_ops_after_for_all_branch
+    branches: ["for_new_portfolio_first_for_dev_ops_after_for_all_branch"] #branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  CI:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # taking the code to the runs-on(ubuntu-latest
+      - uses: actions/checkout@v3
+      - name: Autenticando o usuario no Docker #Docker Login
+        uses: docker/login-action@v2.0.0
+        with:
+          # Username used to log against the Docker registry
+          # https://github.com/cabicho/kube-news/settings/secrets/actions/new
+          username: ${{secrets.DOCKERHUB_USER}}
+          # Password or personal access token used to log against the Docker registry
+          password: ${{secrets.DOCKERHUB_PWD}}
+          # Specifies whether the given registry is ECR (auto, true or false)
+      - name: Construindo a imagem e enviando para o Docker Hub #Build and push Docker images
+        uses: docker/build-push-action@v3.0.0
+        with:
+          file: ./src/Dockerfile
+          context: ./src
+          push: true
+          tags: | # como vamos especificar mais de uma
+            cabicho/kube-news:latest
+            cabicho/kube-news:${{github.run_number}}
+  CD:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    needs: [CI]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Install Linode CLI
+        run: |
+          # Add commands to install the Linode CLI on the runner
+          # Example (you might need to adapt this):
+          curl -s https://raw.githubusercontent.com/linode/cli/main/scripts/install | bash
+          
+      - name: Configure Linode CLI
+        run: |
+          # Set the Linode API token as an environment variable
+          export LINODE_TOKEN="${{ secrets.LINODE_API_TOKEN }}"
+          #  Might need to configure the CLI.  This depends on how you installed.
+          # linode-cli configure --token "$LINODE_API_TOKEN" #<-- DON'T DO THIS.  The 'configure' command is interactive.
+          echo "LINODE_TOKEN is set"
+
+      - name: Get LKE Kubeconfig
+        id: get_kubeconfig
+        run: |
+          # Get the kubeconfig, using the environment variable
+          KUBECONFIG_RAW=$(linode-cli lke kubeconfig-view ${{ secrets.LINODE_CLUSTER_ID }} --text)
+
+          # Check for errors
+          if [ $? -ne 0 ]; then
+            echo "::error::Failed to get LKE kubeconfig"
+            exit 1
+          fi
+          
+          # Echo the output
+          echo "KUBECONFIG=$KUBECONFIG_RAW" >> $GITHUB_OUTPUT
+
+      - name: Set Kubernetes Context
+        uses: Azure/k8s-set-context@v2 #  You might be able to use a Kubernetes action.
+        with:
+          kubeconfig: ${{ steps.get_kubeconfig.outputs.KUBECONFIG }}
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # taking the code to the runs-on(ubuntu-latest)
+      - uses: actions/checkout@v3
+
+      - name: Debug Secret
+        run: echo " ${{ secrets.K8S_CONFIG }}"
+
+      - name: Debug Secret
+        run: echo "${{ secrets.K8S_CONFIG }}" #.length
+
+      ##    echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG  }}" 
+      - name: Debug Secret Contents
+        run: | #echo "K8S_CONFIG (length): $(echo "${{ secrets.K8S_CONFIG && secrets.K8S_CONFIG || 0 }}" #.length #Error: Process completed with exit code 2.
+         echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
+         echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+      
+      - name: Debug Secret and Set KUBECONFIG
+        run: | # (Line: 68, Col: 14): Unrecognized function: 'string'. Located at position 23 within expression: secrets.K
+         echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG  || 0 }}"
+         echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
+         echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+         echo "Setting KUBECONFIG..."
+         echo "KUBECONFIG=${{ secrets.K8S_CONFIG }}" >> $GITHUB_ENV
+
+      #Setting KUBECONFIG...
+      #Error: Unable to process command '::set-env name=KUBECONFIG::' successfully.
+      #- name: Debug Secret and Set KUBECONFIG
+      #  run: | #echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG && string(secrets.K8S_CONFIG).length || 0 }}" 
+      #   echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
+      #   echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+      #   echo "Setting KUBECONFIG..."
+      #   #echo "::set-env name=KUBECONFIG::${{ secrets.K8S_CONFIG }}"
+
+      #Error: Error: Input required and not supplied: kubeconfig
+      - name: Efectuando o Deploy no ambiente de teste Kubernetes #Kubernetes Set Context
+        uses: Azure/k8s-set-context@v2
+        #with:
+        #kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      
+        
+        # ty to fix, Deleting all tab characters and replace them with spaces.
+        with: #The workflow is not valid. .github/workflows/main.yml (Line: 78, Col: 9): Unexpected value 'with'
+          # Marketplace/Search results/Kubernetes Set Context
+          # Acceptable values: kubeconfig or service-account or service-principal
+        # method: kubeconfig  # default is kubeconfig
+          # Contents of kubeconfig file
+         kubeconfig: ${{ secrets.K8S_CONFIG }} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
+      
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v3.1
+        with:
+          # Username used to log against the Docker registry
+          # https://github.com/cabicho/kube-news/settings/secrets/actions/new
+          images: cabicho/kube-news:${{github.run_number}}
+          # Password or personal access token used to log against the Docker registry
+          manifests: |
+            k8s/deployment.yaml
+      
