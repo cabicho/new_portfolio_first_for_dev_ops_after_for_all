@@ -81,7 +81,7 @@ jobs:
         uses: Azure/k8s-set-context@v2 #  You might be able to use a Kubernetes action.
         with:
           kubeconfig: ${{ steps.get_kubeconfig.outputs.KUBECONFIG }}
-    steps:
+    #steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # taking the code to the runs-on(ubuntu-latest)
       - uses: actions/checkout@v3
