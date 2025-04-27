@@ -84,16 +84,18 @@ jobs:
       #Error: Error: Input required and not supplied: kubeconfig
       - name: Efectuando o Deploy no ambiente de teste Kubernetes #Kubernetes Set Context
         uses: Azure/k8s-set-context@v2
+        #with:
+        #kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       
         
         # ty to fix, Deleting all tab characters and replace them with spaces.
-        #with: #The workflow is not valid. .github/workflows/main.yml (Line: 78, Col: 9): Unexpected value 'with'
+        with: #The workflow is not valid. .github/workflows/main.yml (Line: 78, Col: 9): Unexpected value 'with'
           # Marketplace/Search results/Kubernetes Set Context
           # Acceptable values: kubeconfig or service-account or service-principal
         # method: kubeconfig  # default is kubeconfig
           # Contents of kubeconfig file
-         #kubeconfig: ${{secrets.K8S_CONFIG}} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
+         kubeconfig: ${{ secrets.K8S_CONFIG }} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
       
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v3.1
