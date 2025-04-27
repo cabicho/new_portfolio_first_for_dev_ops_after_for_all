@@ -75,10 +75,10 @@ jobs:
          echo "::set-env name=KUBECONFIG::${{ secrets.K8S_CONFIG }}"
         
         # ty to fix, Deleting all tab characters and replace them with spaces.
-        with:
+        #with: #The workflow is not valid. .github/workflows/main.yml (Line: 78, Col: 9): Unexpected value 'with'
           # Marketplace/Search results/Kubernetes Set Context
           # Acceptable values: kubeconfig or service-account or service-principal
-         method: kubeconfig  # default is kubeconfig
+        # method: kubeconfig  # default is kubeconfig
           # Contents of kubeconfig file
          #kubeconfig: ${{secrets.K8S_CONFIG}} # kubeconfig: "" # Intentionally empty optional, foi necessario actualizar        
       
