@@ -65,8 +65,8 @@ jobs:
          echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
       
       - name: Debug Secret and Set KUBECONFIG
-        run: |
-         echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG && string(secrets.K8S_CONFIG).length || 0 }}"
+        run: | # (Line: 68, Col: 14): Unrecognized function: 'string'. Located at position 23 within expression: secrets.K
+         echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG  || 0 }}"
          echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
          echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
          echo "Setting KUBECONFIG..."
