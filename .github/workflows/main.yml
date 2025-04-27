@@ -67,13 +67,13 @@ jobs:
 
       - name: Efectuando o Deploy no ambiente de teste Kubernetes #Kubernetes Set Context
         uses: Azure/k8s-set-context@v2
-      
+        # ty to fix, Deleting all tab characters and replace them with spaces.
         with:
           # Marketplace/Search results/Kubernetes Set Context
           # Acceptable values: kubeconfig or service-account or service-principal
-          method: kubeconfig  # default is kubeconfig
+         method: kubeconfig  # default is kubeconfig
           # Contents of kubeconfig file
-          kubeconfig: ${{secrets.K8S_CONFIG}} # optional, foi necessario actualizar        
+         kubeconfig: ${{secrets.K8S_CONFIG}} # optional, foi necessario actualizar        
       
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v3.1
