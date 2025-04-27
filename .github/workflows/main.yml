@@ -74,12 +74,12 @@ jobs:
 
       #Setting KUBECONFIG...
       #Error: Unable to process command '::set-env name=KUBECONFIG::' successfully.
-      - name: Debug Secret and Set KUBECONFIG
-        run: | #echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG && string(secrets.K8S_CONFIG).length || 0 }}" 
-         echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
-         echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
-         echo "Setting KUBECONFIG..."
-         echo "::set-env name=KUBECONFIG::${{ secrets.K8S_CONFIG }}"
+      #- name: Debug Secret and Set KUBECONFIG
+      #  run: | #echo "K8S_CONFIG (length): ${{ secrets.K8S_CONFIG && string(secrets.K8S_CONFIG).length || 0 }}" 
+      #   echo "K8S_CONFIG (start): $(echo "${{ secrets.K8S_CONFIG }}" | head -c 10)"
+      #   echo "K8S_CONFIG (end):   $(echo "${{ secrets.K8S_CONFIG }}" | tail -c 10)"
+      #   echo "Setting KUBECONFIG..."
+      #   #echo "::set-env name=KUBECONFIG::${{ secrets.K8S_CONFIG }}"
 
       #Error: Error: Input required and not supplied: kubeconfig
       - name: Efectuando o Deploy no ambiente de teste Kubernetes #Kubernetes Set Context
